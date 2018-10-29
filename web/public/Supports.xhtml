@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/templatePublic.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Home page"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+
+            <h:form>
+                <p:dataTable id="datalist" value="#{supportsensibilisationController.items}" var="item"
+                             paginator="false"
+                             rowKey="#{item.id}"
+                             styleClass="borderless"
+                             sortBy="#{item.ordre}"
+                             sortOrder="ascending"
+                             >
+                    <p:column>
+                        <p:panelGrid columns="2" rendered="#{item.type == 'image'}">
+                            <p:panel styleClass="">
+                                <h1> #{item.titre}</h1>
+                                <h5>Description:</h5>
+                                <h:outputText value="#{item.description}"></h:outputText>                               
+                            </p:panel>
+                            <div class="containerimgsupp">
+                                <img src="data:image/png;base64,#{imageDisplayBean.imageDisplay(item.contenuImg)}" alt="Support Image" class="imagesup" style="width:600px" />
+                                <div class="middleimgsup">
+                                    <div class="texttitreimg">#{item.titre}</div>
+                                </div>
+                            </div>
+
+                        </p:panelGrid>
+
+
+                        <p:panelGrid columns="2" rendered="#{item.type == 'video'}">
+                            <iframe width="100%" height="400" src="//www.youtube.com/embed/#{item.video}" frameborder="0" allowfullscreen="true"></iframe>
+
+                            <p:panel styleClass="">
+                                <h1> #{item.titre}</h1>
+                                <h5>Description:</h5>
+                                <h:outputText value="#{item.description}"></h:outputText>                               
+                            </p:panel>
+
+
+                        </p:panelGrid>
+                        <h:panelGrid columns="2" rendered="#{item.type == 'texte'}" style="width:100%" columnClasses="logo,detail">
+                            <p:outputPanel >
+                                <h1>#{item.titre}</h1>
+                                <p:accordionPanel activeIndex="null">
+                                    <p:tab title="Plus..." >
+                                        <h:outputText value="#{item.description}"></h:outputText>                 
+                                    </p:tab>
+                                </p:accordionPanel>
+
+                            </p:outputPanel>    
+                            <p:outputPanel>
+                                <div class="maintxt">
+                                    <h:outputText value="#{item.texte}" escape="false" />
+                                </div>
+                            </p:outputPanel>
+
+
+                        </h:panelGrid>
+
+                        <p:separator style="width: 80%; border-color: #ff6600"></p:separator>
+                    </p:column>
+
+                </p:dataTable>
+
+
+            </h:form>
+            <style type="text/css">         
+                /*demo*/
+                .ui-dataview-list .ui-dataview-row {
+                    border-bottom: 1px solid #A8A8A8;
+                    padding: 25px 10px;
+                }
+
+                .logo {
+                    width: 30%;
+
+
+                }
+                .detail {
+                    width: 80%;
+                    padding-left: 25px;
+                }
+                .maintxt {
+                    height: 400px;
+                    overflow-x: hidden;
+                    overflow-y: scroll;
+                    /* Same as the width of the sidebar */
+                    padding: 0px 10px;
+                }
+            </style>
+        </ui:define>
+    </ui:composition>
+
+</html>

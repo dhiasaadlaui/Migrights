@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+        <script src="http://maps.google.com/maps/api/js?key=AIzaSyCKJMkRa1eMjsTvpOZT9TyTGQhmaR_nGOk" type="text/javascript"></script>
+
+    </h:head>
+
+    <h:body>
+        <p:growl id="growl" life="3000" />
+        <p:growl id="messages" showDetail="true" />
+        <h:form id="menuForm">
+            <p:menubar>
+                <p:menuitem value="#{bundle.Home}" outcome="/public/home.xhtml" icon="ui-icon-home"/>
+
+                <p:menuitem  value="Reclamations"  outcome="/reclamation/List.xhtml" />
+                <p:menuitem value="Immigrants" outcome="/immigrant/List.xhtml" />
+                <p:menuitem value="Articles" outcome="/article/List.xhtml" />
+                <p:menuitem value="Supports de sensibilisation" outcome="/supportsensibilisation/List.xhtml" />  
+                <p:menuitem value="Map" outcome="/localistation/Addmark.xhtml" />
+                <p:menuitem value="Messages" outcome="/message/List.xhtml" />
+
+                <p:menuitem value="Faq" outcome="/faq/List.xhtml" />
+                <p:submenu icon="ui-icon-person" label="#{login.logedAdmin.nom}" style="position: absolute; right: 25px;"  >
+                    <p:menuitem value="Log out" action="#{login.logout()}"   />
+                    <p:menuitem value="Settings" outcome="/localistation/account.xhtml" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+
+        <p:gmap id="gmap" center="36.01274102,9.75117643" zoom="6" type="HYBRID" style="width:100%;height:400px"
+                model="#{localistationController.emptyModel}" onPointClick="handlePointClick(event);" widgetVar="map" />
+
+        <p:dialog widgetVar="dlg" showEffect="fade">
+            <h:form prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="title" value="Title:" />
+                    <p:inputText id="title" value="#{localistationController.title}" style="width: 100%"/>
+
+                    <h:outputLabel for="type" value="Type:" />
+                    <p:selectOneRadio required="true" id="type" value="#{localistationController.color}"  layout="grid" columns="3">
+                        <f:selectItem  itemLabel="Administration Tunisienne" itemValue="http://maps.google.com/mapfiles/kml/pal3/icon21.png"/>
+                        <f:selectItem  itemLabel="ONG " itemValue="http://maps.google.com/mapfiles/kml/pal3/icon19.png"/>
+                        <f:selectItem  itemLabel="Hôpital" itemValue="http://maps.google.com/mapfiles/kml/pal3/icon46.png"/>
+                        <f:selectItem  itemLabel="ambassade / Consulat" itemValue="http://maps.google.com/mapfiles/ms/micons/rangerstation.png"/>
+                        <f:selectItem  itemLabel="Lieu de culte" itemValue="http://maps.google.com/mapfiles/kml/pal2/icon3.png"/>
+                        <f:selectItem  itemLabel="Marché" itemValue="http://maps.google.com/mapfiles/kml/pal3/icon26.png"/>
+                        <f:selectItem  itemLabel="Station (Trein/Louage/Bus)" itemValue="http://maps.google.com/mapfiles/ms/micons/bus.png"/>
+                        <f:selectItem  itemLabel="Police" itemValue="http://maps.google.com/mapfiles/kml/pal2/icon16.png"/>
+                        <f:selectItem  itemLabel="Poste" itemValue="http://maps.google.com/mapfiles/kml/pal5/icon39.png"/>
+                    </p:selectOneRadio>
+
+
+                    <h:outputLabel  value="Description:" />
+                    <p:inputTextarea  style="width: 100%" value="#{localistationController.description}" />
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Add" actionListener="#{localistationController.addMarker}" update=":messages" oncomplete="markerAddComplete()" />
+                        <p:commandButton value="Cancel" onclick="return cancel()" />
+                    </f:facet>
+                </h:panelGrid>
+
+                <h:inputHidden id="lat" value="#{localistationController.lat}" />
+                <h:inputHidden id="lng" value="#{localistationController.lng}" />
+            </h:form>
+        </p:dialog>
+
+        <script type="text/javascript">
+            var currentMarker = null;
+
+            function handlePointClick(event) {
+                if (currentMarker === null) {
+                    document.getElementById('lat').value = event.latLng.lat();
+                    document.getElementById('lng').value = event.latLng.lng();
+
+                    currentMarker = new google.maps.Marker({
+                        position: new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+                    });
+
+                    PF('map').addOverlay(currentMarker);
+
+                    PF('dlg').show();
+                }
+            }
+
+            function markerAddComplete() {
+                var title = document.getElementById('title');
+                currentMarker.setTitle(title.value);
+                title.value = "";
+
+                currentMarker = null;
+                PF('dlg').hide();
+            }
+
+            function cancel() {
+                PF('dlg').hide();
+                currentMarker.setMap(null);
+                currentMarker = null;
+
+                return false;
+            }
+        </script>
+
+        <h:form id="LocalistationListForm">
+            
+                <p:dataTable id="datalist" value="#{localistationController.items}" var="item"
+                             selectionMode="single" selection="#{localistationController.selected}"
+                             paginator="true"
+                             rowKey="#{item.id}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             paginatorPosition="bottom"
+                             >
+
+                    <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                    <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListLocalistationTitle_id}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListLocalistationTitle_objet}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.objet}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListLocalistationTitle_couleur}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.couleur}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListLocalistationTitle_texte}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.texte}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListLocalistationTitle_x}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.x}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListLocalistationTitle_y}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.y}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListLocalistationTitle_idAdmin}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idAdmin}"/>
+                    </p:column>
+                    <f:facet name="header">
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LocalistationViewForm" oncomplete="PF('LocalistationViewDialog').show()" disabled="#{empty localistationController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":LocalistationEditForm" oncomplete="PF('LocalistationEditDialog').show()" disabled="#{empty localistationController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{localistationController.destroy}" update=":growl,datalist" disabled="#{empty localistationController.selected}"/>
+                    </f:facet>
+                </p:dataTable>
+           
+        </h:form>
+        
+        <ui:include src="Edit.xhtml"/>
+        <ui:include src="View.xhtml"/>
+    </h:body>
+
+</html>

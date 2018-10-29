@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ImmigrantEditDlg" widgetVar="ImmigrantEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditImmigrantTitle}">
+            <h:form id="ImmigrantEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{immigrantController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateImmigrantLabel_nom}" for="nom" />
+                        <p:inputText required="true" requiredMessage="Nom Obligatoire" id="nom" value="#{immigrantController.selected.nom}" title="#{bundle.CreateImmigrantTitle_nom}" />
+                        <p:outputLabel value="#{bundle.CreateImmigrantLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" required="true" requiredMessage="prenom obligatoire" value="#{immigrantController.selected.prenom}" title="#{bundle.CreateImmigrantTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.CreateImmigrantLabel_email}" for="email" />
+                        <p:inputText id="email" required="true" validatorMessage="Format de mail invalide"  requiredMessage="Email obligatoire" value="#{immigrantController.selected.email}" title="#{bundle.CreateImmigrantTitle_email}" >
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateImmigrantLabel_numtel}" for="numtel" />
+                        <p:inputText id="numtel" required="true" requiredMessage="Numero telephone obligatoire" value="#{immigrantController.selected.numtel}" title="#{bundle.CreateImmigrantTitle_numtel}" />
+                        <p:outputLabel value="#{bundle.CreateImmigrantLabel_sexe}" for="sexe" />
+                        <p:selectOneMenu id="sexe" value="#{immigrantController.selected.sexe}" var="migitem">
+                            <f:selectItem itemLabel="Homme" itemValue="Homme"/>
+                            <f:selectItem itemLabel="Femme" itemValue="Femme"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateImmigrantLabel_dateNaissance}" for="dateNaissance" />
+                        <p:calendar required="true" requiredMessage="Date de naissance obligatoire" id="dateNaissance" pattern="MM/dd/yyyy" value="#{immigrantController.selected.dateNaissance}" title="#{bundle.EditImmigrantTitle_dateNaissance}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateImmigrantLabel_nationalite}" for="nationalite" />
+                        <p:inputText id="nationalite" required="true" requiredMessage="Nationalité obligatoire" value="#{immigrantController.selected.nationalite}" title="#{bundle.CreateImmigrantTitle_nationalite}" />
+                        <p:outputLabel value="#{bundle.CreateImmigrantLabel_gouvernerat}" for="gouvernerat" />
+                        <p:inputText id="gouvernerat" required="true" requiredMessage="gouvernerat obligatoire" value="#{immigrantController.selected.gouvernerat}" title="#{bundle.CreateImmigrantTitle_gouvernerat}" />
+                        <p:outputLabel value="#{bundle.CreateImmigrantLabel_ville}" for="ville" />
+                        <p:inputText id="ville" value="#{immigrantController.selected.ville}" title="#{bundle.CreateImmigrantTitle_ville}" />
+                        <p:outputLabel value="#{bundle.CreateImmigrantLabel_situationSociale}" for="situationSociale" />
+                        <p:selectOneMenu id="situationSociale" value="#{immigrantController.selected.situationSociale}">
+                            <f:selectItem itemLabel="Étudiant" itemValue="Étudiant"/>
+                            <f:selectItem itemLabel="Chômeur" itemValue="Chômeur"/>
+                            <f:selectItem itemLabel="Employé" itemValue="Employé"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateImmigrantLabel_etatCivile}"  />
+                        <p:selectOneRadio   required="true" id="type" value="#{immigrantController.selected.etatCivile}"  layout="grid" columns="4">
+                            <f:selectItem  itemLabel="Célibataire" itemValue="Célibataire"/>
+                            <f:selectItem  itemLabel="Marié(e)" itemValue="Marié(e)"/>
+                            <f:selectItem  itemLabel="Divorcé(e)" itemValue="Divorcé(e)"/>
+                            <f:selectItem  itemLabel="Veuve/Veuf" itemValue="Veuve/Veuf"/>
+                        </p:selectOneRadio>
+                        <p:outputLabel value="#{bundle.CreateImmigrantLabel_nbrEnfantsEnTn}" for="nbrEnfantsEnTn" />
+                        <p:inputText id="nbrEnfantsEnTn" type="number" value="#{immigrantController.selected.nbrEnfantsEnTn}" title="#{bundle.CreateImmigrantTitle_nbrEnfantsEnTn}" />
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{immigrantController.update}" value="#{bundle.Save}" update="display,:ImmigrantListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ImmigrantEditDialog');">
+                        <p:confirm header="Confirmation" message="Vous ête sure d'avoir Modifier les données de l'immigrant #{immigrantController.selected.prenom} ?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ImmigrantEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

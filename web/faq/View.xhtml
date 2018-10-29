@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FaqViewDlg" widgetVar="FaqViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFaqTitle}">
+            <h:form id="FaqViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{faqController.selected != null}">
+                        <h:outputText value="#{bundle.ViewFaqLabel_id}"/>
+                        <h:outputText value="#{faqController.selected.id}" title="#{bundle.ViewFaqTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewFaqLabel_question}"/>
+                        <h:outputText value="#{faqController.selected.question}" title="#{bundle.ViewFaqTitle_question}"/>
+                        <h:outputText value="#{bundle.ViewFaqLabel_reponse}"/>
+                        <h:outputText value="#{faqController.selected.reponse}" title="#{bundle.ViewFaqTitle_reponse}"/>
+                        <h:outputText value="Vues"/>
+                        <h:outputText value="#{faqController.selected.nbrVue}" title="#{bundle.ViewFaqTitle_nbrVue}"/>
+                        <h:outputText value="Jaime"/>
+                        <h:outputText value="#{faqController.selected.nbrJaime}" title="#{bundle.ViewFaqTitle_nbrJaime}"/>
+                        <h:outputText value="Administrateur"/>
+                        <h:outputText value="#{faqController.selected.idAdmin.prenom} #{faqController.selected.idAdmin.nom}" title="#{bundle.ViewFaqTitle_idAdmin}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="FaqViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

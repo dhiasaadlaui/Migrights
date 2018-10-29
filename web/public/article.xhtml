@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui"
+      >
+
+    <ui:composition template="/templatePublic.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Home page"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <p:panelGrid columns="2" styleClass="noborderGrid">
+                <p:panel style="width: 100%; background-color: #ffffff">
+                    <o:resourceInclude path="/ArticleForm"></o:resourceInclude>
+                </p:panel>
+                <p:panelGrid style="height: 100%; " columns="1"  styleClass="noborderGrid">
+                    <p:galleria   id="tb" value="#{articleController.itemscaro}" var="iteem" panelWidth="500" panelHeight="313" showCaption="true">
+                        <img   Class="content" alt="#{iteem.idAdmin.prenom} #{iteem.idAdmin.nom}" title="#{iteem.titre}"   src="data:image/png;base64,#{imageDisplayBean.imageDisplay(iteem.image)}"   >
+                        </img>
+                    </p:galleria>
+                
+                    <p:sticky target="tb"></p:sticky>
+                </p:panelGrid>
+            </p:panelGrid>     
+        </ui:define>
+    </ui:composition>
+
+</html>

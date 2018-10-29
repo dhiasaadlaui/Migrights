@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/templatePublic.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Home page"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+
+            <p:panel styleClass="itemnoborder">
+                <p:tabView styleClass="itemnoborder">
+                    <p:tab title="FaQ" titleStyle="text-transform: capitalize;" >
+                        <p:dataTable id="datalist" value="#{faqController.items}" var="item"
+                                     paginator="false"
+                                     rowKey="#{item.id}"
+                                     styleClass="borderless">
+                            <p:column>
+                                <p:accordionPanel activeIndex="null">
+                                    <p:tab title="#{item.question}" >
+                                        <p:graphicImage height="50px"  width="50px" value="/resources/images/faq.png"></p:graphicImage>
+                                        <h:outputText  value="#{item.reponse}" escape="false"  />                    
+                                    </p:tab>
+                                </p:accordionPanel>
+                            </p:column>
+                            <p:rowExpansion>
+                            </p:rowExpansion>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Contact US" titleStyle="text-transform: capitalize;" >
+                        <h:form>
+                            <p:panelGrid columns="2" style="width: 100%;" styleClass="noborderGrid" >
+                                <p:panelGrid columns="2" styleClass="noborderGrid" >
+                                    <p:outputLabel value="adress:"></p:outputLabel>
+                                    <p:outputLabel value="47, Avenue Farhat Hached، Bloc 'A', 2ème étage، Tunis 1001"></p:outputLabel>
+                                    <p:outputLabel value="Phone:"></p:outputLabel>
+                                    <p:outputLabel value="71 257 664"></p:outputLabel>
+                                    <f:facet name="footer">
+                                          <p:commandButton id="createButton" icon="ui-icon-plus"   value="Envoyez un message" actionListener="#{messageController.prepareCreate}" update=":MessageCreateForm" oncomplete="PF('MessageCreateDialog').show()"/>
+
+                                    </f:facet>
+                                </p:panelGrid>
+                              
+                                <p:gmap id="gmap" center="36.79772255, 10.18420621" zoom="20" type="HYBRID" style="width:500px;height:250px;"
+                                        streetView="true" />
+                            </p:panelGrid>
+                        </h:form>
+                    </p:tab>
+                    
+                </p:tabView>
+            </p:panel>
+            <ui:include src="Newmessage.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

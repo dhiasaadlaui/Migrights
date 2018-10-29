@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReclamationEditDlg" widgetVar="ReclamationEditDialog" modal="true"  resizable="false"  width="1000px" height="500px" appendTo="@(body)" header="Détails de Réclamation selectionée">
+            <h:form id="ReclamationEditForm">
+                <h:panelGroup id="display">
+                    <p:tabView orientation="left">
+                        <p:tab title="Réclamation">
+
+
+                            <p:panelGrid columns="2" rendered="#{reclamationController.selected != null}">
+                                <p:outputLabel value="Nom et prénom immigrant"  />
+                                <p:outputLabel id="id"  value="#{reclamationController.selected.idImmigrant.prenom} #{reclamationController.selected.idImmigrant.nom}"></p:outputLabel>
+                                <p:outputLabel value="#{bundle.EditReclamationLabel_type}"  />
+                                <p:outputLabel id="type" value="#{reclamationController.selected.type}" />
+                                <p:outputLabel value="#{bundle.EditReclamationLabel_contenu}"  />
+                                <p:outputLabel  id="contenu" value="#{reclamationController.selected.contenu}" escape="false" />
+                                <p:outputLabel value="#{bundle.EditReclamationLabel_dateHeure}"  />
+                                <h:outputText value="#{reclamationController.selected.dateHeure}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                                <p:outputLabel  value="Admin en charge" />
+                                <p:outputLabel id="admin" value="#{reclamationController.selected.idAdmin.prenom} #{reclamationController.selected.idAdmin.nom}"  />
+                                <p:outputLabel value="#{bundle.EditReclamationLabel_etat}"  />
+                                <p:selectOneMenu  value="#{reclamationController.selected.etat}">
+                                    <f:selectItem itemLabel="En attente ..." itemValue="En attente ..."></f:selectItem>
+                                    <f:selectItem itemLabel="En cours de traitement" itemValue="En cours ..."></f:selectItem>
+                                    <f:selectItem itemLabel="Traité" itemValue="Traité"></f:selectItem>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Note"></p:outputLabel>
+                                <p:inputTextarea required="true" requiredMessage="Veuillez ajouter une note" value="#{reclamationController.note}"/>
+                            </p:panelGrid> 
+                        </p:tab>
+                        <p:tab title="Détails Immigrant">
+                            <p:panelGrid columns="2" styleClass="borderless">
+
+
+                                <p:panelGrid columns="2" rendered="#{reclamationController.selected.idImmigrant != null}">
+                                    <h:outputText value="Id immigrant"/>
+                                    <h:outputText value="#{reclamationController.selected.idImmigrant.id}" title="#{bundle.ViewImmigrantTitle_id}"/>
+                                    <h:outputText value="#{bundle.ViewImmigrantLabel_nom}"/>
+                                    <h:outputText value="#{reclamationController.selected.idImmigrant.nom}" title="#{bundle.ViewImmigrantTitle_nom}"/>
+                                    <h:outputText value="#{bundle.ViewImmigrantLabel_prenom}"/>
+                                    <h:outputText value="#{reclamationController.selected.idImmigrant.prenom}" title="#{bundle.ViewImmigrantTitle_prenom}"/>
+                                    <h:outputText value="#{bundle.ViewImmigrantLabel_email}"/>
+                                    <h:outputText value="#{reclamationController.selected.idImmigrant.email}" title="#{bundle.ViewImmigrantTitle_email}"/>
+                                    <h:outputText value="#{bundle.ViewImmigrantLabel_numtel}"/>
+                                    <h:outputText value="#{reclamationController.selected.idImmigrant.numtel}" title="#{bundle.ViewImmigrantTitle_numtel}"/>
+                                    <h:outputText value="#{bundle.ViewImmigrantLabel_sexe}"/>
+                                    <h:outputText value="#{reclamationController.selected.idImmigrant.sexe}" title="#{bundle.ViewImmigrantTitle_sexe}"/>
+                                    <h:outputText value="#{bundle.ViewImmigrantLabel_dateNaissance}"/>
+                                    <h:outputText value="#{reclamationController.selected.idImmigrant.dateNaissance}" title="#{bundle.ViewImmigrantTitle_dateNaissance}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                    <h:outputText value="#{bundle.ViewImmigrantLabel_nationalite}"/>
+                                    <h:outputText value="#{reclamationController.selected.idImmigrant.nationalite}" title="#{bundle.ViewImmigrantTitle_nationalite}"/>
+                                    <h:outputText value="#{bundle.ViewImmigrantLabel_gouvernerat}"/>
+                                    <h:outputText value="#{reclamationController.selected.idImmigrant.gouvernerat}" title="#{bundle.ViewImmigrantTitle_gouvernerat}"/>
+                                    <h:outputText value="#{bundle.ViewImmigrantLabel_ville}"/>
+                                    <h:outputText value="#{reclamationController.selected.idImmigrant.ville}" title="#{bundle.ViewImmigrantTitle_ville}"/>
+                                    <h:outputText value="#{bundle.ViewImmigrantLabel_situationSociale}"/>
+                                    <h:outputText value="#{reclamationController.selected.idImmigrant.situationSociale}" title="#{bundle.ViewImmigrantTitle_situationSociale}"/>
+                                    <h:outputText value="#{bundle.ViewImmigrantLabel_etatCivile}"/>
+                                    <h:outputText value="#{reclamationController.selected.idImmigrant.etatCivile}" title="#{bundle.ViewImmigrantTitle_etatCivile}"/>
+                                    <h:outputText value="#{bundle.ViewImmigrantLabel_nbrEnfantsEnTn}"/>
+                                    <h:outputText value="#{reclamationController.selected.idImmigrant.nbrEnfantsEnTn}" title="#{bundle.ViewImmigrantTitle_nbrEnfantsEnTn}"/>
+                                </p:panelGrid>
+                                <p:dataTable value="#{reclamationController.selected.idImmigrant.reclamationList}" var="itm">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Total (#{reclamationController.selected.idImmigrant.reclamationList.size()}) Réclamations"/>
+                                    </f:facet>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Date"/>
+                                        </f:facet>
+                                        <h:outputText value="#{itm.dateHeure}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Type"/>
+                                        </f:facet>
+                                        <h:outputText value="#{itm.type}"/>                           
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="État"/>
+                                        </f:facet>
+                                        <h:outputText value="#{itm.etat}"/>                           
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+
+                    <p:commandButton actionListener="#{reclamationController.update}" value="Confirmer" update="display,:ReclamationListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ReclamationEditDialog');">
+                        <p:confirm header="Confirmation" message="Vous ête sure d'avoir prendre en charge cette reclamation ?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ReclamationEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

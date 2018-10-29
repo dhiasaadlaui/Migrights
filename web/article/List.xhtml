@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListArticleTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="ArticleListForm">
+                <p:panel header="articles">
+                    <p:dataTable id="datalist" value="#{articleController.items}" var="item"
+                                 selectionMode="single" selection="#{articleController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 paginatorPosition="bottom"
+                                 widgetVar="articlesTable"
+
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:column style="width:16px">
+                            <p:rowToggler />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListArticleTitle_dateHeure}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateHeure}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column filterBy="#{item.titre}" filterStyle="display: none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListArticleTitle_titre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.titre}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Auteur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAdmin.prenom} #{item.idAdmin.nom}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Vues"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbrVue}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Jaime"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbrJaime}"/>
+                        </p:column>
+                        <p:rowExpansion>
+                            <p:panelGrid  columns="1" columnClasses="label,value"   style=" position: relative;left: 10%; width:80%;align-self: center">
+                                <f:facet name="header">
+                                    <h:outputText value="#{item.titre}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.texte}" escape="false" />
+                                <img src="data:image/png;base64,#{articleController.imageDisplay(item.image)}" height="250" width="100%"/>
+                            </p:panelGrid>
+                        </p:rowExpansion>
+                        <f:facet name="header">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{articleController.prepareCreate}" update=":ArticleCreateForm" oncomplete="PF('ArticleCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ArticleViewForm" oncomplete="PF('ArticleViewDialog').show()" disabled="#{empty articleController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ArticleEditForm" oncomplete="PF('ArticleEditDialog').show()" disabled="#{empty articleController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{articleController.destroy}" update=":growl,datalist" disabled="#{empty articleController.selected}">
+                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:inputText id="globalFilter" onkeyup="PF('articlesTable').filter()" style="width:150px" placeholder="Recherche..."/>
+                        </f:facet>
+                    </p:dataTable>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="reclamation/Edit.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="faq/List.xhtml" x="1650" y="450" zoom="true"/>
+        <Node id="statistiques/List.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="welcomePrimefaces.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="localistation/Mapadmin.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="message/List.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="contenumedia/Create.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="supportsensibilisation/Edit.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="supportsensibilisation/View.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="faq/Edit.xhtml" x="150" y="1200" zoom="true"/>
+        <Node id="immigrant/List.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="template.xhtml" x="2150" y="150" zoom="true"/>
+        <Node id="faq/View.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="localistation/Addmark.xhtml" x="650" y="1050" zoom="true"/>
+        <Node id="immigrant/View.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="immigrant/Edit.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="message/Create.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="localistation/List.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="index.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="reclamation/Create.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="admin/Edit.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="localistation/Create.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="admin/View.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="Login.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="article/List.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="message/Edit.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="article/Create.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="admin/Create.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="admin/List.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="message/View.xhtml" x="1150" y="750" zoom="true"/>
+        <Node id="localistation/Edit.xhtml" x="1400" y="600" zoom="true"/>
+        <Node id="reclamation/List.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="supportsensibilisation/List.xhtml" x="1900" y="300" zoom="true"/>
+        <Node id="article/View.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="faq/Create.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="supportsensibilisation/Create.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="contenumedia/Edit.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="contenumedia/List.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="article/Edit.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="reclamation/View.xhtml" x="900" y="900" zoom="true"/>
+        <Node id="localistation/View.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="contenumedia/View.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="immigrant/Create.xhtml" x="1400" y="300" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ArticleEditDlg" widgetVar="ArticleEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditArticleTitle}">
+            <h:form id="ArticleEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{articleController.selected != null}">
+                      <p:outputLabel value="#{bundle.CreateArticleLabel_titre}" for="titre" />
+                        <p:inputText id="titre" value="#{articleController.selected.titre}" title="#{bundle.CreateArticleTitle_titre}" />
+                        <p:outputLabel value="#{bundle.CreateArticleLabel_texte}" for="texte" />
+                        <p:editor id="texte" style="width: 100%" value="#{articleController.selected.texte}"  />
+                        <p:outputLabel value="#{bundle.CreateArticleLabel_dateHeure}" for="dateHeure" />
+                        <p:calendar id="dateHeure" pattern="MM/dd/yyyy HH:mm:ss" value="#{articleController.selected.dateHeure}" title="#{bundle.EditArticleTitle_dateHeure}"  showOn="button"/>
+                        <p:outputLabel value="Auteur" for="idAdmin" />
+                        <p:selectOneMenu id="idAdmin" value="#{articleController.selected.idAdmin}" >
+                            <f:selectItems value="#{adminController.itemsAvailableSelectOne}"
+                                           var="idAdminItem"
+                                           itemValue="#{idAdminItem}"
+                                           itemLabel="#{idAdminItem.prenom} #{idAdminItem.nom}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{articleController.update}" value="#{bundle.Save}" update="display,:ArticleListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ArticleEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ArticleEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

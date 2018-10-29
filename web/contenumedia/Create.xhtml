@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContenumediaCreateDlg" widgetVar="ContenumediaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateContenumediaTitle}">
+            <h:form id="ContenumediaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contenumediaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateContenumediaLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{contenumediaController.selected.id}" title="#{bundle.CreateContenumediaTitle_id}" required="true" requiredMessage="#{bundle.CreateContenumediaRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateContenumediaLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{contenumediaController.selected.type}" title="#{bundle.CreateContenumediaTitle_type}" />
+                        <p:outputLabel value="#{bundle.CreateContenumediaLabel_contenu}" for="contenu" />
+                        <p:inputTextarea rows="4" cols="30" id="contenu" value="#{contenumediaController.selected.contenu}" title="#{bundle.CreateContenumediaTitle_contenu}" />
+                        <p:outputLabel value="#{bundle.CreateContenumediaLabel_idReclamation}" for="idReclamation" />
+                        <p:selectOneMenu id="idReclamation" value="#{contenumediaController.selected.idReclamation}" >
+                            <f:selectItems value="#{reclamationController.itemsAvailableSelectOne}"
+                                           var="idReclamationItem"
+                                           itemValue="#{idReclamationItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{contenumediaController.create}" value="#{bundle.Save}" update="display,:ContenumediaListForm:datalist,:growl" oncomplete="handleSubmit(args,'ContenumediaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ContenumediaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

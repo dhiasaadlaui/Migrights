@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListMessageTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="MessageListForm">
+                <p:panel header="#{bundle.ListMessageTitle}">
+                    <p:chart type="bar" model="#{chartView.barModel}" style="height:300px"/>
+
+                    <p:chart type="bar" model="#{chartView.horizontalBarModel}" style="height:300px"/>
+                    <h:panelGrid columns="4" columnClasses="left,right" style="width:100%">
+                        <p:chart type="line" model="#{chartViewAnimated.animatedModel1}" style="width:300px;height:300px" />
+                        <p:chart type="bar" model="#{chartViewAnimated.animatedModel2}" style="width:300px;height:300px" />
+                        <p:chart type="pie" model="#{chartViewPie.pieModel1}" style="width:300px;height:300px" />
+                        <p:chart type="pie" model="#{chartViewPie.pieModel2}" style="width:300px;height:300px" />
+                    </h:panelGrid>
+                    <p:chart type="line" model="#{chartViewLine.lineModel1}" style="height:300px;"/>
+
+                    <p:chart type="line" model="#{chartViewLine.lineModel2}" style="height:300px;"/>
+                </p:panel>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

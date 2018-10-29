@@ -1,0 +1,473 @@
+.ui-widget {
+    font-size: 18px !important;
+}
+.ui-layout-north {
+    z-index: 20 !important;
+    overflow: visible !important;;
+}
+.ui-layout-north .ui-layout-unit-content {
+    overflow: visible !important;
+}
+.ui-widget-header {
+    text-align: center;
+    text-transform: uppercase;
+}
+.ui-button {
+    margin-top: 10px !important;
+}
+.ui-layout-unit, ui-layout-unit, ui-widget, ui-widget-content, ui-corner-all, ui-layout-north, ui-layout-pane, ui-layout-pane-north {
+    border: none; padding:0;margin: 0;
+}
+
+.ui-datatable.borderless thead th,
+.ui-datatable.borderless tbody,
+.ui-datatable.borderless tbody tr,
+.ui-datatable.borderless tbody td {
+    border-style: none;
+    background: #eee !important;
+}
+.noborderGrid.ui-panelgrid>*>tr,
+.noborderGrid.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}
+.red{
+    background-color:graytext;
+    background-image:none;
+}
+.encours{
+    background-color: #4CAF50;
+    background-image:none;
+}
+
+.greenbtn {
+    width: 20%;
+}
+
+.itemnoborder {
+    border: none;
+    background: none;
+    margin: 0px !important;
+
+}
+
+.textcenter {
+    text-align: center;
+    align-self: center;
+    align-items: center;
+
+}
+.containerarticle {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+
+}
+
+.imagearticle {
+    display: block;
+    width: 1000px;
+    height: auto;
+
+}
+
+.overlayarticle {
+    position: absolute; 
+    bottom: 0; 
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5); /* Black see-through */
+    color: #f1f1f1; 
+    width: 100%;
+    transition: .5s ease;
+    opacity:0;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.containerarticle:hover .overlayarticle {
+    opacity: 1;
+}
+
+.topnav {
+    background-color: #ff6600;
+    overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+
+}
+.topnav a:last-child {
+    
+    
+    right: 10px !important;
+    
+    position: absolute;
+}
+.topnav a:first-child{
+    width: 76px !important;    
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Add an active class to highlight the current page */
+.active {
+    background-color: #469F35;
+    color: white;
+}
+
+/* Hide the link that should open and close the topnav on small screens */
+.topnav .icon {
+    display: none;
+}
+@media (max-width:992px) {
+    .top {height:100px}
+    .top img {display:block;margin:auto;}
+    .top .w3schools-logo {position:relative;top:0;width:100%;text-align:center;margin:auto}
+    .toptext {width:100%;text-align:center}
+    #sidenav {width:260px;}
+    #sidenav h2 {font-size:26px;width:100%;}
+    #sidenav a {padding:3px 2px 3px 24px;font-size:17px}
+    #leftmenuinner {  
+        box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        overflow:auto;
+        -webkit-overflow-scrolling:touch;
+        height:100%;
+        position:relative;
+        width:auto;
+        padding-top:0;
+        background-color:#f1f1f1;
+    }
+    #leftmenuinnerinner {overflow-y:scroll}
+    .bottomad {float:none;text-align:center}
+    #skyscraper {min-height:60px}
+}
+.w3schools-logo {
+    font-family:fontawesome;
+    text-decoration:none;
+    line-height:1;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    font-size:37px;
+    letter-spacing:3px;
+    color:#555555;
+    display:block;
+    position:absolute;
+    top:1px;
+}
+.w3schools-logo .dotcom {color:#4CAF50}
+.top {
+    position:relative;
+    background-color:#ffffff;
+    height:50px;
+    padding-top:20px;
+    line-height:50px;
+    overflow:hidden;
+    z-index:2;
+}
+/* Slideshow container */
+.slideshow-container {
+    max-width: 100%;
+    position: relative;
+    margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+    background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+
+@keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+
+
+.sidenav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 112px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+/* Style page content */
+.main {
+    margin-left: 160px; /* Same as the width of the sidebar */
+    padding: 0px 10px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.containerimgsupp {
+    position: relative;
+    width: 100%;
+}
+
+.imagesup {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.middleimgsup {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.containerimgsupp:hover .imagesup {
+    opacity: 0.3;
+}
+
+.containerimgsupp:hover .middleimgsup {
+    opacity: 0.7;
+}
+
+.texttitreimg {
+    
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    padding: 16px 32px;
+    
+}
+
+       .fa {
+           
+                padding: 20px;
+                font-size: 30px;
+                
+                text-align: center !important;
+                text-decoration: none;
+                margin: 5px 2px;
+                
+            }
+
+            .fa:hover {
+                opacity: 0.7;
+            }
+
+            .fa-facebook {
+                background: #3B5998;
+                color: white !important;
+            }
+
+            .fa-twitter {
+                background: #55ACEE;
+                color: white !important;
+                
+            }
+
+            .fa-google {
+                background: #dd4b39;
+                color: white !important;
+            }
+
+            .fa-linkedin {
+                background: #007bb5;
+                color: white !important;
+            }
+
+            .fa-youtube {
+                background: #bb0000;
+                color: white !important;
+            }
+
+            .fa-instagram {
+                background: #125688;
+                color: white !important;
+            }
+
+            .fa-pinterest {
+                background: #cb2027;
+                color: white !important;
+            }
+
+            .fa-snapchat-ghost {
+                background: #fffc00;
+                color: white !important;
+                text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+            }
+
+            .fa-skype {
+                background: #00aff0;
+                color: white !important;
+            }
+
+            .fa-android {
+                background: #a4c639;
+                color: white !important;
+            }
+
+            .fa-dribbble {
+                background: #ea4c89;
+                color: white;
+            }
+
+            .fa-vimeo {
+                background: #45bbff;
+                color: white;
+            }
+
+            .fa-tumblr {
+                background: #2c4762;
+                color: white;
+            }
+
+            .fa-vine {
+                background: #00b489;
+                color: white;
+            }
+
+            .fa-foursquare {
+                background: #45bbff;
+                color: white;
+            }
+
+            .fa-stumbleupon {
+                background: #eb4924;
+                color: white;
+            }
+
+            .fa-flickr {
+                background: #f40083;
+                color: white;
+            }
+
+            .fa-yahoo {
+                background: #430297;
+                color: white;
+            }
+
+            .fa-soundcloud {
+                background: #ff5500;
+                color: white;
+            }
+
+            .fa-reddit {
+                background: #ff5700;
+                color: white;
+            }
+
+            .fa-rss {
+                background: #ff6600;
+                color: white;
+            }

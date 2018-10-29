@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SupportsensibilisationCreateVideoDlg" widgetVar="SupportsensibilisationCreateVideoDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSupportsensibilisationTitle}">
+            <h:form id="SupportsensibilisationCreateVideoForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{supportsensibilisationController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSupportsensibilisationLabel_titre}" for="titre" />
+                        <p:inputText required="true" requiredMessage="Titre obligatoire"  id="titre" style="width: 100%" value="#{supportsensibilisationController.selected.titre}" title="#{bundle.CreateSupportsensibilisationTitle_titre}" />
+                        <p:outputLabel value="#{bundle.CreateSupportsensibilisationLabel_ordre}" for="ordre" />
+                        <p:inputText type="number" onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;" style="width: 100%" id="ordre" value="#{supportsensibilisationController.selected.ordre}" title="#{bundle.CreateSupportsensibilisationTitle_ordre}"/>
+                        <p:outputLabel value="#{bundle.CreateSupportsensibilisationLabel_description}" for="description" />
+                        <p:inputTextarea rows="3" required="true" requiredMessage="Description Obligatoire" style="width: 100%" id="description" value="#{supportsensibilisationController.selected.description}" title="#{bundle.CreateSupportsensibilisationTitle_description}" />
+                        <p:outputLabel value="Lien Youtube" for="video" />
+
+                        
+                        <p:inputText style="width: 100%" required="true" requiredMessage="Code video obligatoire" placeholder="Coller le code youtube" id="video" value="#{supportsensibilisationController.selected.video}" />
+                     
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{supportsensibilisationController.createVideo}" value="#{bundle.Save}" update="display,:SupportsensibilisationListForm:datalist,:growl" oncomplete="handleSubmit(args,'SupportsensibilisationCreateVideoDialog');">
+                    <p:confirm header="Confirmation" message="Vous ête sure d'avoir créer un support de type Video ?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SupportsensibilisationCreateVideoDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

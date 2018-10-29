@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListReclamationTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="ReclamationListForm">
+                <p:panel header="Gestion des réclamations">
+                    <p:dataTable id="datalist" value="#{reclamationController.items}" var="item"
+                                 selectionMode="single" selection="#{reclamationController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 paginatorPosition="bottom"
+                                 rowStyleClass="#{item.etat eq 'En attente ...' ? 'red':null} #{item.etat eq 'En cours ...' ? 'encours':null} "
+                                 widgetVar="recTable"
+                                 rowIndexVar="indexnum" 
+                                 >
+
+                        <p:ajax event="rowSelect"    update="createButton  editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton  editButton deleteButton"/>
+                        <p:ajax event="rowDblselect" update=":ReclamationEditForm" oncomplete="PF('ReclamationEditDialog').show()" />
+                        <p:column style="width:100px">
+                            <f:facet name="header">
+                                <h:outputText value="Index"/>
+                            </f:facet>
+                            <h:outputText value="#{indexnum+1}"/>
+                        </p:column>
+                        
+                        <p:column sortBy="#{item.type}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReclamationTitle_type}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.type}"/>
+                        </p:column>
+
+                        <p:column sortBy="#{item.etat}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReclamationTitle_etat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.etat}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.dateHeure}">
+                            <f:facet  name="header">
+                                <h:outputText value="#{bundle.ListReclamationTitle_dateHeure}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateHeure}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Admin en charge"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAdmin.prenom} #{item.idAdmin.nom}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.idImmigrant.nom}" filterStyle="display: none">
+                            <f:facet name="header">
+                                <h:outputText value="Immigrant"/>
+                            </f:facet>
+                            <h:outputText rendered="#{item.idImmigrant!=null}" value="#{item.idImmigrant.prenom} #{item.idImmigrant.nom}"/>
+                            <p:outputLabel value="Anonyme" rendered="#{item.idImmigrant==null}" ></p:outputLabel>
+                        </p:column>
+                        <f:facet name="header">
+                            <p:commandButton id="createButton" styleClass="greenbtn" icon="ui-icon-plus"   value="Ajouter" actionListener="#{reclamationController.prepareCreate}" update=":ReclamationCreateForm" oncomplete="PF('ReclamationCreateDialog').show()"/>
+                            <p:commandButton id="editButton" styleClass="greenbtn"  icon="ui-icon-pencil" value="Prendre en charge" update=":ReclamationEditForm" oncomplete="PF('ReclamationEditDialog').show()" disabled="#{empty reclamationController.selected}"/>
+                            <p:commandButton id="deleteButton" styleClass="greenbtn" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{reclamationController.destroy}" update=":growl,datalist" disabled="#{empty reclamationController.selected}">
+                                     <p:confirm header="Confirmation" message="Vous ête sure d'avoir supprimer cette réclamation ?" icon="ui-icon-alert" />            
+                            </p:commandButton>
+                            
+                            <p:inputText id="globalFilter" onkeyup="PF('recTable').filter()" placeholder="Chercher par nom immigrant" styleClass="greenbtn" ></p:inputText>
+                           
+                        </f:facet>
+                    </p:dataTable>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                </p:panel>
+            </h:form>
+            
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Createmig.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

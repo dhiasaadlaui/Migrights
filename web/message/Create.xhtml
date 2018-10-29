@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MessageCreateDlg" widgetVar="MessageCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMessageTitle}">
+            <h:form id="MessageCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{messageController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{messageController.selected.id}" title="#{bundle.CreateMessageTitle_id}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{messageController.selected.nom}" title="#{bundle.CreateMessageTitle_nom}" />
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{messageController.selected.prenom}" title="#{bundle.CreateMessageTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{messageController.selected.email}" title="#{bundle.CreateMessageTitle_email}" />
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_contenu}" for="contenu" />
+                        <p:inputText id="contenu" value="#{messageController.selected.contenu}" title="#{bundle.CreateMessageTitle_contenu}" />
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_etat}" for="etat" />
+                        <p:inputText id="etat" value="#{messageController.selected.etat}" title="#{bundle.CreateMessageTitle_etat}" />
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{messageController.selected.date}" title="#{bundle.EditMessageTitle_date}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_reponce}" for="reponce" />
+                        <p:inputText id="reponce" value="#{messageController.selected.reponce}" title="#{bundle.CreateMessageTitle_reponce}" />
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_idAdmin}" for="idAdmin" />
+                        <p:selectOneMenu id="idAdmin" value="#{messageController.selected.idAdmin}" >
+                            <f:selectItems value="#{adminController.itemsAvailableSelectOne}"
+                                           var="idAdminItem"
+                                           itemValue="#{idAdminItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{messageController.create}" value="#{bundle.Save}" update="display,:MessageListForm:datalist,:growl" oncomplete="handleSubmit(args,'MessageCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MessageCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

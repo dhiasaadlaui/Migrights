@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/templatePublic.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Home page"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <p:gmap id="gmap" center="36.01274102,9.75117643" zoom="6" type="HYBRID" style="width:100%;height:400px"
+                    model="#{localistationController.emptyModel}" streetView="true">
+                <p:ajax event="overlaySelect" listener="#{localistationController.onMarkerSelect}" />
+
+                <p:gmapInfoWindow id="infoWindow">
+                    <p:outputPanel style="text-align: center; display: block; margin: auto">
+
+
+                        <h:outputText value="#{localistationController.markerClient.title}" />
+                        
+                    </p:outputPanel>
+                </p:gmapInfoWindow>
+            </p:gmap>
+        
+
+
+            <p:panelGrid columns="10" >
+                <img src="http://maps.google.com/mapfiles/kml/pal3/icon21.png"></img>
+                <p:outputLabel value="Administration Tunisienne"></p:outputLabel>
+                <img src="http://maps.google.com/mapfiles/kml/pal3/icon19.png"></img>
+                <p:outputLabel value="ONG"></p:outputLabel>
+                <img src="http://maps.google.com/mapfiles/kml/pal3/icon46.png"></img>
+                <p:outputLabel value="Hôpital"></p:outputLabel>
+                <img src="http://maps.google.com/mapfiles/ms/micons/rangerstation.png"></img>
+                <p:outputLabel value="ambassade / Consulat"></p:outputLabel>
+                <img src="http://maps.google.com/mapfiles/kml/pal2/icon3.png"></img>
+                <p:outputLabel value="Lieu de culte"></p:outputLabel>
+                <img src="http://maps.google.com/mapfiles/kml/pal3/icon26.png"></img>
+                <p:outputLabel value="Marché"></p:outputLabel>
+                <img src="http://maps.google.com/mapfiles/ms/micons/bus.png"></img>
+                <p:outputLabel value="Station (Trein/Louage/Bus)"></p:outputLabel>
+                <img src="http://maps.google.com/mapfiles/kml/pal2/icon16.png"></img>
+                <p:outputLabel value="Police"></p:outputLabel>
+                <img src="http://maps.google.com/mapfiles/kml/pal5/icon39.png"></img>
+                <p:outputLabel value="Poste"></p:outputLabel>
+            </p:panelGrid>
+        </ui:define>
+    </ui:composition>
+
+</html>

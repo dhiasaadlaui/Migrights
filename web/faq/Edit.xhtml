@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FaqEditDlg" widgetVar="FaqEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditFaqTitle}">
+            <h:form id="FaqEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{faqController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditFaqLabel_question}" for="question" />
+                        <p:inputTextarea rows="2" cols="33" style="width: 300px" id="question" value="#{faqController.selected.question}" title="#{bundle.EditFaqTitle_question}" />
+                        <p:outputLabel value="#{bundle.EditFaqLabel_reponse}" for="reponse" />
+                        <p:inputTextarea rows="6" cols="50" style="width: 300px" id="reponse" value="#{faqController.selected.reponse}" title="#{bundle.EditFaqTitle_reponse}" />
+                        <p:outputLabel value="Administrateur"  />
+                        <p:outputLabel value="#{faqController.selected.idAdmin.prenom} #{faqController.selected.idAdmin.nom}"  />
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{faqController.update}" value="#{bundle.Save}" update="display,:FaqListForm:datalist,:growl" oncomplete="handleSubmit(args, 'FaqEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FaqEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

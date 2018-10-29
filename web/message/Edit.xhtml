@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MessageEditDlg" widgetVar="MessageEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMessageTitle}">
+            <h:form id="MessageEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{messageController.selected != null}">
+                        <p:outputLabel value="To" for="email" />
+                        <p:inputText id="email" value="#{messageController.selected.email}" title="#{bundle.EditMessageTitle_email}" />
+
+                        <p:outputLabel value="Objet" />
+                        <p:inputText value="#{messageController.subject}" required="true"  />
+
+                        <p:outputLabel value="E-mail password" />
+                        <p:password value="#{messageController.password}" required="true"  />
+
+
+
+                        <p:outputLabel value="Réponse" for="reponce" />
+                        <p:inputTextarea required="true" rows="6" cols="33" id="reponce" value="#{messageController.selected.reponce}" title="#{bundle.EditMessageTitle_reponce}" />
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{messageController.update}" value="Envoyer" update="display,:MessageListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MessageEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MessageEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

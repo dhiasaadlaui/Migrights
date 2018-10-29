@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdminEditDlg" widgetVar="AdminEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAdminTitle}">
+            <h:form id="AdminEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{adminController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAdminLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{adminController.selected.nom}" title="#{bundle.EditAdminTitle_nom}" />
+                        <p:outputLabel value="#{bundle.EditAdminLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{adminController.selected.prenom}" title="#{bundle.EditAdminTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.EditAdminLabel_poste}" for="poste" />
+                        <p:inputText id="poste" value="#{adminController.selected.poste}" title="#{bundle.EditAdminTitle_poste}" />
+                        <p:outputLabel value="#{bundle.EditAdminLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{adminController.selected.email}" title="#{bundle.EditAdminTitle_email}" />
+                        <p:outputLabel value="#{bundle.EditAdminLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{adminController.selected.password}" title="#{bundle.EditAdminTitle_password}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{adminController.update}" value="#{bundle.Save}" update="display,:AdminListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AdminEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AdminEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LocalistationViewDlg" widgetVar="LocalistationViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewLocalistationTitle}">
+            <h:form id="LocalistationViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{localistationController.selected != null}">
+                        <h:outputText value="#{bundle.ViewLocalistationLabel_id}"/>
+                        <h:outputText value="#{localistationController.selected.id}" title="#{bundle.ViewLocalistationTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewLocalistationLabel_objet}"/>
+                        <h:outputText value="#{localistationController.selected.objet}" title="#{bundle.ViewLocalistationTitle_objet}"/>
+                        <h:outputText value="#{bundle.ViewLocalistationLabel_couleur}"/>
+                        <h:outputText value="#{localistationController.selected.couleur}" title="#{bundle.ViewLocalistationTitle_couleur}"/>
+                        <h:outputText value="#{bundle.ViewLocalistationLabel_texte}"/>
+                        <h:outputText value="#{localistationController.selected.texte}" title="#{bundle.ViewLocalistationTitle_texte}"/>
+                        <h:outputText value="#{bundle.ViewLocalistationLabel_x}"/>
+                        <h:outputText value="#{localistationController.selected.x}" title="#{bundle.ViewLocalistationTitle_x}"/>
+                        <h:outputText value="#{bundle.ViewLocalistationLabel_y}"/>
+                        <h:outputText value="#{localistationController.selected.y}" title="#{bundle.ViewLocalistationTitle_y}"/>
+                        <h:outputText value="#{bundle.ViewLocalistationLabel_idAdmin}"/>
+                        <h:outputText value="#{localistationController.selected.idAdmin}" title="#{bundle.ViewLocalistationTitle_idAdmin}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="LocalistationViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

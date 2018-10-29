@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ImmigrantViewDlg" widgetVar="ImmigrantViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewImmigrantTitle}">
+            <h:form id="ImmigrantViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{immigrantController.selected != null}">
+                        <h:outputText value="#{bundle.ViewImmigrantLabel_id}"/>
+                        <h:outputText value="#{immigrantController.selected.id}" title="#{bundle.ViewImmigrantTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewImmigrantLabel_nom}"/>
+                        <h:outputText value="#{immigrantController.selected.nom}" title="#{bundle.ViewImmigrantTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewImmigrantLabel_prenom}"/>
+                        <h:outputText value="#{immigrantController.selected.prenom}" title="#{bundle.ViewImmigrantTitle_prenom}"/>
+                        <h:outputText value="#{bundle.ViewImmigrantLabel_email}"/>
+                        <h:outputText value="#{immigrantController.selected.email}" title="#{bundle.ViewImmigrantTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewImmigrantLabel_numtel}"/>
+                        <h:outputText value="#{immigrantController.selected.numtel}" title="#{bundle.ViewImmigrantTitle_numtel}"/>
+                        <h:outputText value="#{bundle.ViewImmigrantLabel_sexe}"/>
+                        <h:outputText value="#{immigrantController.selected.sexe}" title="#{bundle.ViewImmigrantTitle_sexe}"/>
+                        <h:outputText value="#{bundle.ViewImmigrantLabel_dateNaissance}"/>
+                        <h:outputText value="#{immigrantController.selected.dateNaissance}" title="#{bundle.ViewImmigrantTitle_dateNaissance}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewImmigrantLabel_nationalite}"/>
+                        <h:outputText value="#{immigrantController.selected.nationalite}" title="#{bundle.ViewImmigrantTitle_nationalite}"/>
+                        <h:outputText value="#{bundle.ViewImmigrantLabel_gouvernerat}"/>
+                        <h:outputText value="#{immigrantController.selected.gouvernerat}" title="#{bundle.ViewImmigrantTitle_gouvernerat}"/>
+                        <h:outputText value="#{bundle.ViewImmigrantLabel_ville}"/>
+                        <h:outputText value="#{immigrantController.selected.ville}" title="#{bundle.ViewImmigrantTitle_ville}"/>
+                        <h:outputText value="#{bundle.ViewImmigrantLabel_situationSociale}"/>
+                        <h:outputText value="#{immigrantController.selected.situationSociale}" title="#{bundle.ViewImmigrantTitle_situationSociale}"/>
+                        <h:outputText value="#{bundle.ViewImmigrantLabel_etatCivile}"/>
+                        <h:outputText value="#{immigrantController.selected.etatCivile}" title="#{bundle.ViewImmigrantTitle_etatCivile}"/>
+                        <h:outputText value="#{bundle.ViewImmigrantLabel_nbrEnfantsEnTn}"/>
+                        <h:outputText value="#{immigrantController.selected.nbrEnfantsEnTn}" title="#{bundle.ViewImmigrantTitle_nbrEnfantsEnTn}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ImmigrantViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

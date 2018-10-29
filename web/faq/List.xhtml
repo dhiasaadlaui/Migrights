@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListFaqTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="FaqListForm">
+                <p:panel header="#{bundle.ListFaqTitle}">
+                    <p:dataTable id="datalist" value="#{faqController.items}" var="item"
+                                 selectionMode="single" selection="#{faqController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 paginatorPosition="bottom"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column style="width:5%">
+                            <p:rowToggler />
+                        </p:column>
+                        <p:column style="width:55%" >
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFaqTitle_question}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.question}"/>
+                        </p:column>
+
+                        <p:column style="width:20%">
+                            <f:facet name="header">
+                                <h:outputText value="Administrateur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAdmin.prenom} #{item.idAdmin.nom}"/>
+                        </p:column>
+                        <p:column style="width:10%">
+                            <f:facet name="header">
+                                <h:outputText value="Vues"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbrVue}"/>
+                        </p:column>
+                        <p:column style="width:10%">
+                            <f:facet name="header">
+                                <h:outputText value="Jaime"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbrJaime}"/>
+                        </p:column>
+                        <p:rowExpansion>
+
+
+                            <p:graphicImage height="50px"  width="50px" value="/resources/images/faq.png"></p:graphicImage>
+                            <h:outputText  value="#{item.reponse}" escape="false"  />
+
+                        </p:rowExpansion>
+
+                        <f:facet name="header">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{faqController.prepareCreate}" update=":FaqCreateForm" oncomplete="PF('FaqCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":FaqViewForm" oncomplete="PF('FaqViewDialog').show()" disabled="#{empty faqController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":FaqEditForm" oncomplete="PF('FaqEditDialog').show()" disabled="#{empty faqController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{faqController.destroy}" update=":growl,datalist" disabled="#{empty faqController.selected}">
+                               <p:confirm header="Confirmation" message="Êtes-vous sûr de vouloir supprimer cette question ?" icon="ui-icon-alert" />
+                             
+                            </p:commandButton>
+                        </f:facet>
+                    </p:dataTable>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

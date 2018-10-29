@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/templatePublic.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Home page"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="form">
+                <p:contentFlow   value="#{articleController.itemscaro}" var="itm" style="background: #469F35">
+
+
+                    <img   Class="content"   src="data:image/png;base64,#{imageDisplayBean.imageDisplay(itm.image)}"   >
+                    </img>
+                    <h1 class="caption">  <h:outputLink  style="color: whitesmoke " value="/Migrights/faces/public/article.xhtml" >
+                                <h:outputText value="#{itm.titre}" />
+                                <f:param name="id" value="#{itm.id}" />
+                            </h:outputLink>
+                    </h1>
+
+                </p:contentFlow>
+
+
+    
+
+
+                <br/>
+                <p:dataTable id="datalist" value="#{articleController.items}" var="item" 
+                             paginator="true"
+                             paginatorPosition="bottom"
+                             rowKey="#{item.id}"
+                             styleClass="borderless"
+
+                             >
+                    <p:column>
+                        <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">
+                            <p:outputPanel >
+                                <img  src="data:image/png;base64,#{imageDisplayBean.imageDisplay(item.image)}" width="300px" >
+                                </img> 
+                            </p:outputPanel>    
+                            <p:outputPanel>
+                                <h:panelGrid columns="1" cellpadding="5">
+
+
+                                    <p:commandLink update=":form:artDetail" oncomplete="PF('artDialog').show()"  title="View Detail" value="#{item.titre}" style="font-weight: bold" >
+
+                                        <f:setPropertyActionListener value="#{item}" target="#{articleController.selected}" />
+                                    </p:commandLink>
+                                    <h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+                                        <h:outputText value="Rédigé par : #{item.idAdmin.prenom} #{item.idAdmin.nom} " />
+                                        <h:outputText value="#{item.dateHeure}" >
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                        <p:spacer width="2"></p:spacer>
+                                        <p:spacer width="2"></p:spacer>
+
+                                    </h:panelGrid>
+
+                                    <h:outputText  value="Vue: #{item.nbrVue} J'aime: #{item.nbrJaime}" style="font-size: 8 !important;" />
+
+
+
+
+                                </h:panelGrid>
+                            </p:outputPanel>
+
+                            <h:outputLink value="/Migrights/faces/public/article.xhtml" >
+                                <h:outputText value="Lire" />
+                                <f:param name="id" value="#{item.id}" />
+                            </h:outputLink>
+
+                        </h:panelGrid>
+                        <p:separator />
+                    </p:column>
+
+                </p:dataTable>
+                <p:dialog  header="#{articleController.selected.titre}" id="artDialog"  widgetVar="artDialog" modal="true"  resizable="false"  width="800px" height="500px" maximizable="true" appendTo="@(body)">
+
+                    <p:outputPanel  id="artDetail" style="text-align:center;background-color: #ffffff;">
+                        <p:panelGrid  columns="1" styleClass="borderless" style="background-color: #ffffff;" >
+
+                            <h:outputText style="background-color: #ffffff;" value="#{articleController.selected.texte}" escape="false" title="#{bundle.ViewArticleTitle_texte}"/>
+
+                        </p:panelGrid>
+                    </p:outputPanel>
+
+                </p:dialog>
+
+            </h:form>
+            <style type="text/css">         
+                /*demo*/
+                .ui-dataview-list .ui-dataview-row {
+                    border-bottom: 1px solid #A8A8A8;
+                    padding: 25px 10px;
+                }
+
+                .logo {
+                    width: 30%;
+
+
+                }
+                .detail {
+                    width: 50%;
+                    padding-left: 25px;
+                }
+            </style>
+        </ui:define>
+    </ui:composition>
+
+</html>

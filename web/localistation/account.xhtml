@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListLocalistationTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="AdminEditForm">
+                <p:panel header="Parametre du compte">
+                    <p:panelGrid columns="2" >
+                        <p:outputLabel value="#{bundle.EditAdminLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{login.logedAdmin.nom}" title="#{bundle.EditAdminTitle_nom}" disabled="true" />
+                        <p:outputLabel value="#{bundle.EditAdminLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{login.logedAdmin.prenom}" title="#{bundle.EditAdminTitle_prenom}" disabled="true" />
+                        <p:outputLabel value="#{bundle.EditAdminLabel_poste}" for="poste" />
+                        <p:inputText id="poste" value="#{login.logedAdmin.poste}" title="#{bundle.EditAdminTitle_poste}" disabled="true" />
+                        <p:outputLabel value="#{bundle.EditAdminLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{login.logedAdmin.email}" title="#{bundle.EditAdminTitle_email}" />
+                        <p:outputLabel value="#{bundle.EditAdminLabel_password}"  />
+                        <input type="password" value="#{login.logedAdmin.password}" id="myInput"></input>
+                        <p:outputLabel value="Afficher mot de passe"></p:outputLabel>
+                        <input type="checkbox" onclick="myPasswordDisplay()"></input>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{adminController.updateLogedAccount()}" value="#{bundle.Save}" update=":growl">
+                        <p:confirm header="Confirmation" message="Êtes-vous sûr de vouloir Modifier vos Informations de compte ?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                </p:panel>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

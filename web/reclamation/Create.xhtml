@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReclamationCreateDlg" widgetVar="ReclamationCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Ajout d'une nouvelle réclamation">
+            <h:form id="ReclamationCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{reclamationController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateReclamationLabel_type}"  />
+                        <p:selectOneMenu style="width: 100%" id="type" value="#{reclamationController.selected.type}"  >
+                            <f:selectItem itemLabel="Acte raciste verbal" itemValue="Acte raciste verbal"/>
+                            <f:selectItem itemLabel="Acte raciste physique" itemValue="Acte raciste physique"/>
+                            <f:selectItem itemLabel="Exploitation" itemValue="Exploitation"/>
+                            <f:selectItem itemLabel="Violence sexuelle" itemValue="Violence sexuelle"/>
+                            <f:selectItem itemLabel="Problème dû à la régularisation" itemValue="Problème dû à la régularisation"/>
+                            <f:selectItem itemLabel="Escroquerie" itemValue="Escroquerie"/>
+                            <f:selectItem itemLabel="Discrimination à l'administration" itemValue="Discrimination à l'administration"/>
+                            <f:selectItem itemLabel="Autre..." itemValue="Autre..."/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateReclamationLabel_contenu}" for="contenu" />
+                        <p:inputTextarea style="width: 100%" id="contenu" value="#{reclamationController.selected.contenu}" title="#{bundle.CreateReclamationTitle_contenu}" />
+                        <p:outputLabel value="#{bundle.CreateReclamationLabel_etat}"  />
+                        <p:selectOneMenu style="width: 100%" value="#{reclamationController.selected.etat}">
+                            <f:selectItem itemLabel="En attente ..." itemValue="En attente ..."></f:selectItem>
+                            <f:selectItem itemLabel="En cours de traitement" itemValue="En cours ..."></f:selectItem>
+                            <f:selectItem itemLabel="Traité" itemValue="Traité"></f:selectItem>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Immigrant" for="idImmigrant" />
+                        <p:panelGrid style="width: 100%" columns="2" >
+                            <p:selectOneMenu style="width: 100%" id="idImmigrant" value="#{reclamationController.selected.idImmigrant}" >
+                                <f:selectItems value="#{immigrantController.itemsAvailableSelectOne}"
+                                               var="idImmigrantItem"
+                                               itemValue="#{idImmigrantItem}"
+                                               itemLabel="#{idImmigrantItem.prenom} #{idImmigrantItem.nom} ( #{idImmigrantItem.nationalite} )"
+                                               />
+                            </p:selectOneMenu>
+                            <p:commandButton style="width: 20px" id="createButtonMig" icon="ui-icon-plus"    actionListener="#{immigrantController.prepareCreate}" update=":ImmigrantCreateForm" oncomplete="PF('ImmigrantCreateDialog').show()">
+                                <p:confirm header="Confirmation" message="Vous ête sure d'avoir ajouter un nouveau immigrant ?" icon="ui-icon-alert" />
+                 
+                            </p:commandButton>
+                            
+                        </p:panelGrid>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{reclamationController.create}" value="#{bundle.Save}" update="display,:ReclamationListForm:datalist,:growl" oncomplete="handleSubmit(args,'ReclamationCreateDialog');">
+                     <p:confirm header="Confirmation" message="Vous ête sure d'avoir ajouter une nouvelle reclamation de l'immigrant #{reclamationController.selected.idImmigrant.prenom} ?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ReclamationCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

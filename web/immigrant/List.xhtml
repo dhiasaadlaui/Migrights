@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListImmigrantTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="ImmigrantListForm">
+                <p:panel header="#{bundle.ListImmigrantTitle}">
+                    <p:dataTable id="datalist" value="#{immigrantController.items}" var="item"
+                                 selectionMode="single" selection="#{immigrantController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 paginatorPosition="bottom"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        
+                        <p:column filterBy="#{item.id}">
+                            <f:facet name="header">
+                                <h:outputText value="Matricule"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.nom}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListImmigrantTitle_nom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nom}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.prenom}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListImmigrantTitle_prenom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prenom}"/>
+                        </p:column>
+
+
+
+                        <p:column sortBy="#{item.dateNaissance}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListImmigrantTitle_dateNaissance}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateNaissance}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column filterBy="#{item.nationalite}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListImmigrantTitle_nationalite}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nationalite}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.gouvernerat}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListImmigrantTitle_gouvernerat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gouvernerat}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.ville}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListImmigrantTitle_ville}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ville}"/>
+                        </p:column>
+
+
+
+                        <f:facet name="header">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{immigrantController.prepareCreate}" update=":ImmigrantCreateForm" oncomplete="PF('ImmigrantCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ImmigrantViewForm" oncomplete="PF('ImmigrantViewDialog').show()" disabled="#{empty immigrantController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ImmigrantEditForm" oncomplete="PF('ImmigrantEditDialog').show()" disabled="#{empty immigrantController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{immigrantController.destroy}" update=":growl,datalist" disabled="#{empty immigrantController.selected}">
+                                <p:confirm header="Confirmation" message="Vous ête sure d'avoir supprimer L'immigrant ?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:dataTable>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

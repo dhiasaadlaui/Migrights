@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SupportsensibilisationCreateTextDlg" widgetVar="SupportsensibilisationCreateTextDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSupportsensibilisationTitle}">
+            <h:form id="SupportsensibilisationCreateTextForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{supportsensibilisationController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSupportsensibilisationLabel_titre}" for="titre" />
+                        <p:inputText required="true" requiredMessage="Titre obligatoire"  id="titre" value="#{supportsensibilisationController.selected.titre}" title="#{bundle.CreateSupportsensibilisationTitle_titre}" />
+                        <p:outputLabel value="#{bundle.CreateSupportsensibilisationLabel_ordre}" for="ordre" />
+                        
+                        <p:inputText type="number" onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;"  id="ordre" value="#{supportsensibilisationController.selected.ordre}" title="#{bundle.CreateSupportsensibilisationTitle_ordre}" />
+                        <p:outputLabel value="#{bundle.CreateSupportsensibilisationLabel_description}" for="description" />
+                        <p:inputText required="true" requiredMessage="Description obligatoire" style="width: 100%" id="description" value="#{supportsensibilisationController.selected.description}" title="#{bundle.CreateSupportsensibilisationTitle_description}" />
+                        <p:outputLabel value="#{bundle.CreateSupportsensibilisationLabel_texte}" for="texte" />
+                        
+                        <p:editor required="true" requiredMessage="Texte obligatoire" style="width: 100%" id="texte" value="#{supportsensibilisationController.selected.texte}"   />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{supportsensibilisationController.createText}" value="#{bundle.Save}" update="display,:SupportsensibilisationListForm:datalist,:growl" oncomplete="handleSubmit(args,'SupportsensibilisationCreateTextDialog');">
+                    <p:confirm header="Confirmation" message="Vous êtes sure d'avoir créer un support de type Texte" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SupportsensibilisationCreateTextDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
