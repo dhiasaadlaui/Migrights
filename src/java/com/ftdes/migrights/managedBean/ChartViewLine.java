@@ -43,7 +43,7 @@ public class ChartViewLine implements Serializable {
         lineModel2.setShowPointLabels(true);
         lineModel2.getAxes().put(AxisType.X, new CategoryAxis("Years"));
         yAxis = lineModel2.getAxis(AxisType.Y);
-        yAxis.setLabel("Births");
+        yAxis.setLabel("Births11");
         yAxis.setMin(0);
         yAxis.setMax(200);
     }
